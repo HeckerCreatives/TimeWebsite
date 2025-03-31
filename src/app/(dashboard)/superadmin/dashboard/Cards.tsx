@@ -52,8 +52,8 @@ export default function Cards() {
     <div className=' max-w-[1440px] h-auto w-full grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8 mt-6'>
 
 
-        <Card icon={<Wallet size={30} />} iconbg={'bg-yellow-500 '} title={'Payin'} amount={`${wallets?.payin.toLocaleString()}`} subtitle={'Use to purchase miner set up'} text={''} loading={loading}/>
-        <Card icon={<Wallet size={30} />} iconbg={'bg-yellow-500 '} title={'Total Payout'} amount={`${wallets?.totalpayout.toLocaleString()}`} subtitle={'The sum of commission wallet & miner wallet'} text={''} loading={loading}/>
+        <Card icon={<Wallet size={30} />} iconbg={'bg-yellow-500 '} title={'Payin'} amount={`${wallets?.payin.toLocaleString()}`} subtitle={'Use to purchase chrono package'} text={''} loading={loading}/>
+        <Card icon={<Wallet size={30} />} iconbg={'bg-yellow-500 '} title={'Total Payout'} amount={`${wallets?.totalpayout.toLocaleString()}`} subtitle={'The sum of commission wallet & chrono package wallet'} text={''} loading={loading}/>
         <Card icon={<Wallet size={30} />} iconbg={'bg-yellow-500 '} title={'Chrono Package Total Payout'} amount={`${wallets?.payoutminer.toLocaleString()}`} subtitle={'Total income from chrono package'} text={''} loading={loading}/>
         <Card icon={<Wallet size={30} />} iconbg={'bg-yellow-500 '} title={'Company Commission'} amount={`${wallets?.companycommission.toLocaleString()}`} subtitle={''} text={''} loading={loading}/>
         <Card icon={<Wallet size={30} />} iconbg={'bg-yellow-500 '} title={'Total User Commission'} amount={`${wallets?.totalusercommission.toLocaleString()}`} subtitle={'Total accumulated commission from direct refferal'} text={''} loading={loading}/>

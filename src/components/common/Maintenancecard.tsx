@@ -46,6 +46,17 @@ export default function Maintenancecard( prop: Props) {
     setState(prop.value === '0' ? false : true)
   },[prop])
 
+  const titleCard = (data: string) => {
+    if(data === 'payout'){
+      return 'Maintenance Payout'
+    } else if(data === 'deposit'){
+      return 'Maintenance Deposit'
+    } else {
+      return 'Full Maintenance'
+
+    }
+  }
+
 
   return (
     <div className=' w-full h-auto p-4 flex items-center gap-4 bg-zinc-800 rounded-sm'>
@@ -56,7 +67,7 @@ export default function Maintenancecard( prop: Props) {
       
 
         <div className=' flex flex-col gap-3'>
-            <p className=' text-sm font-semibold'>{prop.name}</p>
+            <p className=' text-sm font-semibold'>{titleCard(prop.type)}</p>
             <Switch checked={state} onCheckedChange={(checked) => updateMaintenance(checked)} />
         </div>
 
