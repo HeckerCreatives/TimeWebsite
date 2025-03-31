@@ -65,6 +65,13 @@ export default function Inventory() {
         setCurrentpage(page)
     }
 
+    const formatString = (data: string) => {
+      return data
+          .split('_')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+  }
+
     
   return (
     <div className=' w-full flex flex-col gap-8 items-center bg-zinc-800 min-h-[500px] p-4'>
@@ -107,7 +114,7 @@ export default function Inventory() {
                         )}
                     />
                   </TableCell>
-                  <TableCell className=' text-center'>{item.type}</TableCell>
+                  <TableCell className=' text-center'>{formatString(item.type)}</TableCell>
                 </TableRow>
               ))}
                 
