@@ -105,7 +105,7 @@ export default function Rigs() {
           <div className=' w-full max-w-[1740px] grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(500px,1fr))] gap-4'>
 
             {Object.values(list).map((item, index) => (
-              <MyChrono id={item.chronoid} key={index} name={item.name} percentage={`${item.profit * 100}`} duration={item.duration} img={productImage(item.name)} size={productImageSize(item.name)} earnings={(item.isb1t1 ? item.buyprice * item.profit : item.earnings)} timeleft={item.remainingtime} purchase={new Date(item.purchasedate).toLocaleString()} max={item.buyprice} buyprice={item.buyprice} b1t1={item.isb1t1} maturedate={item.maturedate} promo={item.promo}/>
+              <MyChrono id={item.chronoid} key={index} name={item.name} percentage={`${item.profit * 100}`} duration={item.duration} img={productImage(item.name)} size={productImageSize(item.name)} earnings={(item.isb1t1 == true ? item.buyprice * item.profit : item.earnings)} timeleft={item.remainingtime} purchase={new Date(item.purchasedate).toLocaleString()} max={item.buyprice} buyprice={item.buyprice} b1t1={item.isb1t1} maturedate={item.maturedate} promo={item.promo}/>
 
             ))}
 
