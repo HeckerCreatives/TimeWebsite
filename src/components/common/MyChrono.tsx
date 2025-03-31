@@ -37,12 +37,12 @@ export default function MyChrono(prop: Props) {
   const [loading, setLoading] = useState(false);
   const [dialog, setDialog] = useState(false);
   const [remainingTime, setRemainingTime] = useState(prop.timeleft);
-  const [realTimeEarnings, setRealTimeEarnings] = useState(prop.b1t1 == true ? prop.buyprice * prop.earnings : prop.earnings); 
+  const [realTimeEarnings, setRealTimeEarnings] = useState(prop.earnings); 
   const [progress, setProgress] = useState(0); 
   const widthString = `${progress.toFixed(2)}%`; 
 
   const getProfit = prop.buyprice * (prop.percentage / 100);
-  const finalProfit = prop.buyprice + getProfit;
+  const finalProfit = prop.b1t1 == true ? prop.buyprice * prop.earnings : prop.buyprice + getProfit;
 
   const claimEarnings = async () => {
     setLoading(true);
