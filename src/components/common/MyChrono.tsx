@@ -44,6 +44,8 @@ export default function MyChrono(prop: Props) {
   const getProfit = prop.buyprice * (prop.percentage / 100);
   const finalProfit = prop.b1t1 == true ? prop.buyprice * prop.earnings : prop.buyprice + getProfit;
 
+  console.log("buy price", prop.buyprice, "earnings", prop.earnings, "isb1t1", prop.b1t1, "finalprice", prop.buyprice * prop.earnings)
+
   const claimEarnings = async () => {
     setLoading(true);
     try {
