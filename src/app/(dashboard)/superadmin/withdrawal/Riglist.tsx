@@ -30,6 +30,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { banks } from '@/app/data'
 
 
 
@@ -242,25 +243,16 @@ export default function Riglist() {
                   <SelectValue placeholder="Payment Method" />
                 </SelectTrigger>
                 <SelectContent>
-                 <SelectItem value='Gcash'>Gcash</SelectItem>
-                <SelectItem value='GoTyme'>GoTyme</SelectItem>
-                <SelectItem value='BDO'>BDO</SelectItem>
-                <SelectItem value='BPI'>BPI</SelectItem>
-                <SelectItem value='RCBC'>RCBC</SelectItem>
-                <SelectItem value='EASTWEST'>EASTWEST</SelectItem>
-                <SelectItem value='CHINABANK'>CHINABANK</SelectItem>
-                <SelectItem value='UNIONBANK'>UNION BANK</SelectItem>
-                <SelectItem value='SECURITYBANK'>SECURITY BANK</SelectItem>
-                 <SelectItem value='METROBANK'>METRO BANK</SelectItem>
-                 <SelectItem value='PNB'>PNB</SelectItem>
-                 <SelectItem value='MAYA'>MAYA</SelectItem>
-                 <SelectItem value='CIMBBANK'>CIMB BANK</SelectItem>
+                 {banks.map((item, index) => (
+                  <SelectItem key={item} value={item}>{item}</SelectItem>
+
+                  ))}
                 
           
                 </SelectContent>
               </Select>
 
-              <input value={date} onChange={(e) => setDate(e.target.value)} type="date" className=' text-xs p-2 text-black rounded-sm' />
+              <input value={date} onChange={(e) => setDate(e.target.value)} type="date" className=' text-xs p-2 bg-white text-black rounded-sm' />
                 <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" placeholder='Search Username' className=' p-2 rounded-sm text-xs bg-zinc-900 border-none' />
                 <button onClick={reset} className=' p-2 bg-yellow-600 text-black rounded-sm'><RefreshCcw size={15}/></button>
             </div>

@@ -126,7 +126,7 @@ export default function AdminLayout({
             </SheetContent>
           </Sheet>
 
-          <Breadcrumb dashboard={'/user/dashboard'} page={page}/>
+          <Breadcrumb dashboard={'/user/dashboard'} page={page} title={'Time Board'}/>
 
         </div>
         

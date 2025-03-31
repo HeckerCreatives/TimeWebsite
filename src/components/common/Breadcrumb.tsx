@@ -13,7 +13,8 @@ import { usePathname } from 'next/navigation'
 
 type Props = {
   page: any
-  dashboard: string
+  dashboard: string,
+  title: string
 }
 
 export default function Breadcrumbdb(prop: Props) {
@@ -24,7 +25,7 @@ export default function Breadcrumbdb(prop: Props) {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild className=' '>
-                <p className=' text-zinc-100 md:text-xs text-[.6rem]'>Dashboard</p>
+                <p className=' text-zinc-100 md:text-xs text-[.6rem]'>{ prop.title}</p>
               </BreadcrumbLink>
             </BreadcrumbItem>
           <BreadcrumbSeparator />

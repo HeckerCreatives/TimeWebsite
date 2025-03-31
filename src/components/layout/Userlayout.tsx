@@ -39,7 +39,7 @@ export default function UserLayout({
   const path = usePathname()
   const params = useSearchParams()
 
-  const page = path.includes('/user/dashboard') && 'Time Board' || path.includes('/user/unilevel') && 'Unilevel' || path.includes('/user/requestpayout') && 'Request Payout' || path.includes('/user/purchase') && 'Buy Chrono Package' || path.includes('/user/mychronopackage') && 'My Chrono Package' || path.includes('/user/faq') && 'Bot Assistance'
+  const page = path.includes('/user/dashboard') && '' || path.includes('/user/unilevel') && 'Unilevel' || path.includes('/user/requestpayout') && 'Request Payout' || path.includes('/user/purchase') && 'Buy Chrono Package' || path.includes('/user/mychronopackage') && 'My Chrono Package' || path.includes('/user/faq') && 'Bot Assistance'
 
   const [username, setUsername] = useState('')
   const [id, setId] = useState('')
@@ -181,7 +181,7 @@ export default function UserLayout({
                 </SheetContent>
               </Sheet>
 
-              <Breadcrumb dashboard={'/user/dashboard'} page={page}/>
+              <Breadcrumb dashboard={'/user/dashboard'} page={page} title={'Time Board'}/>
 
             </div>
             

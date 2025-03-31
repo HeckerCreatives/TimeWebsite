@@ -144,7 +144,7 @@ export default function DashboardTable() {
                 <SelectItem value="commissionwallet">Commission Wallet History</SelectItem>
                 <SelectItem value="directcommissionwallet">Direct Commission Wallet History</SelectItem>
                 <SelectItem value="minecoinwallet">Chrono Package Wallet History</SelectItem>
-                <SelectItem value="creditwallet">Credit Wallet History</SelectItem>
+                <SelectItem value="creditwallet">Credit Time Wallet History</SelectItem>
             </SelectContent>
             </Select>
 

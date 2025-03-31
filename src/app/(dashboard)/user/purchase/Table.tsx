@@ -67,6 +67,13 @@ export default function PurchaseHistoryTable() {
     setCurrentPage(page)
   }
 
+  const formatString = (data: string) => {
+    return data
+        .split('_')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+}
+
 
   return (
     <div className=' relative w-full flex flex-col items-center gap-8 max-w-[1740px] min-h-[500px] h-auto mt-12 bg-zinc-800 p-6'>
@@ -116,7 +123,7 @@ export default function PurchaseHistoryTable() {
               <TableRow key={index}>
                 <TableCell className="text-center">{new Date(item.createdAt).toDateString()}</TableCell>
                 <TableCell className=' text-center'>₱ {item.amount?.toLocaleString()}</TableCell>
-                <TableCell className=' text-center'>{item.chronotype}</TableCell>
+                <TableCell className=' text-center'>{formatString(item.chronotype)}</TableCell>
               </TableRow>
             ))}
             </>

@@ -28,6 +28,7 @@ type Props = {
   buyprice: any;
   b1t1: boolean
   maturedate: string
+  promo: string
 }
 
 export default function MyChrono(prop: Props) {
@@ -229,7 +230,7 @@ export default function MyChrono(prop: Props) {
                         <p className=' text-xs text-white font-medium'>Matured Date: <span className=' text-orange-300'>{`${new Date(prop.maturedate).toLocaleString()}`}</span></p>
                         </div>
 
-                    <p className=' text-xs  font-medium mt-6'>Promo: <span className=' text-yellow-500'>{prop.b1t1 ? 'Dual Time' : 'Regular'}</span></p>
+                    <p className=' text-xs  font-medium mt-6'>Promo: <span className=' text-yellow-500'>{prop.promo}</span></p>
 
 
                     <div className=' w-full flex items-end justify-end mt-8'>

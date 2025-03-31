@@ -15,6 +15,7 @@ import Spinner from '@/components/common/Spinner'
 import { payout, RequestPayout } from '@/validation/schema'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { banks } from '@/app/data'
 
 
 type Wallets = {
@@ -260,19 +261,11 @@ export default function Payout() {
                                 <SelectValue placeholder="Select Payment Method" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value='Gcash'>Gcash</SelectItem>
-                                <SelectItem value='GoTyme'>GoTyme</SelectItem>
-                                <SelectItem value='BDO'>BDO</SelectItem>
-                                <SelectItem value='BPI'>BPI</SelectItem>
-                                <SelectItem value='RCBC'>RCBC</SelectItem>
-                                <SelectItem value='EASTWEST'>EASTWEST</SelectItem>
-                                <SelectItem value='CHINABANK'>CHINABANK</SelectItem>
-                                <SelectItem value='UNIONBANK'>UNION BANK</SelectItem>
-                                <SelectItem value='SECURITYBANK'>SECURITY BANK</SelectItem>
-                                <SelectItem value='METROBANK'>METRO BANK</SelectItem>
-                                <SelectItem value='PNB'>PNB</SelectItem>
-                                <SelectItem value='MAYA'>MAYA</SelectItem>
-                                <SelectItem value='CIMBBANK'>CIMB BANK</SelectItem>
+                                {banks.map((item, index) => (
+                                    <SelectItem key={item} value={item}>{item}</SelectItem>
+
+                                ))}
+                               
                             </SelectContent>
                             </Select>
                             <p className=' text-[.6rem] md:text-xs text-orange-300'>*Select payment method</p>

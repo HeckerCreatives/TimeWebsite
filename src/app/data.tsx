@@ -57,6 +57,22 @@ export const faqs = [
       answer:
         "Invite your friends to join Time and earn rewards along the way! You can find your unique referral link in the invitation section of your dashboard—just click on the referral link next to your username. Once you have it, share it easily through social media, email, or messaging apps. When your friends sign up using your link and purchase a Chrono package, you'll receive rewards based on their profit percentage. It’s a great way to grow together!",
     },
-  ]
+]
+
+export const banks = [
+  "Gcash",
+  "GoTyme",
+  // "BDO",
+  // "BPI",
+  // "RCBC",
+  // "EASTWEST",
+  // "CHINABANK",
+  // "UNIONBANK",
+  // "SECURITYBANK",
+  // "METROBANK",
+  // "PNB",
+  // "MAYA",
+  // "CIMBBANK"
+];
   
   

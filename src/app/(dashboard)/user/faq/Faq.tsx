@@ -15,7 +15,7 @@ export default function Faq() {
         <div className=' w-full max-w-[1040px] flex flex-col gap-2 items-center justify-center p-4'>
 
             <img src="/full.png" alt="" className=' w-[250px] md:w-[350px]' />
-            <p className=' text-2xl font-semibold text-slate-100 text-center mb-10'>Help Assistance</p>
+            <p className=' text-2xl font-semibold text-slate-100 text-center mb-10'>Bot Assistance</p>
 
             {faqs.map((item, index) => (
                 <Accordion key={index} type="single" collapsible className=' w-full bg-zinc-900 px-4'>
