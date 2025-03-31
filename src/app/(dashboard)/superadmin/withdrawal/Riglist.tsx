@@ -239,7 +239,7 @@ export default function Riglist() {
 
             <div className=' flex flex-wrap items-center gap-2'>
               <Select value={payemnt} onValueChange={setPayment}>
-                <SelectTrigger className="w-[150px] bg-slate-900 text-white">
+                <SelectTrigger className=" w-[180px] bg-slate-900 text-white">
                   <SelectValue placeholder="Payment Method" />
                 </SelectTrigger>
                 <SelectContent>
