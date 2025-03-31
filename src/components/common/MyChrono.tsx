@@ -37,7 +37,7 @@ export default function MyChrono(prop: Props) {
   const [loading, setLoading] = useState(false);
   const [dialog, setDialog] = useState(false);
   const [remainingTime, setRemainingTime] = useState(prop.timeleft);
-  const [realTimeEarnings, setRealTimeEarnings] = useState(prop.earnings); 
+  const [realTimeEarnings, setRealTimeEarnings] = useState(prop.b1t1 == true ? prop.buyprice * prop.earnings : prop.earnings); 
   const [progress, setProgress] = useState(0); 
   const widthString = `${progress.toFixed(2)}%`; 
 
