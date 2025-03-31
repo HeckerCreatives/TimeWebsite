@@ -29,6 +29,7 @@ type Props = {
   b1t1: boolean
   maturedate: string
   promo: string
+  profit: number
 }
 
 export default function MyChrono(prop: Props) {
@@ -42,9 +43,9 @@ export default function MyChrono(prop: Props) {
   const widthString = `${progress.toFixed(2)}%`; 
 
   const getProfit = prop.buyprice * (prop.percentage / 100);
-  const finalProfit = prop.b1t1 == true ? prop.buyprice * prop.earnings : prop.buyprice + getProfit;
+  const finalProfit = prop.b1t1 == true ? prop.buyprice * prop.profit : prop.buyprice + getProfit;
 
-  console.log("buy price", prop.buyprice, "earnings", prop.earnings, "isb1t1", prop.b1t1, "finalprice", prop.buyprice * prop.earnings)
+  console.log("buy price", prop.buyprice, "profit", prop.profit, "isb1t1", prop.b1t1, "finalprice", prop.buyprice * prop.profit)
 
   const claimEarnings = async () => {
     setLoading(true);
