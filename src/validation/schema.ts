@@ -16,7 +16,7 @@ export const payout = z.object({
   paymentmethod: z.string().nonempty('Please select a payment method'),
   accountname: z.string().nonempty('Please enter your account name') .regex(/^[A-Za-z]+$/, 'Account name should not have numbers & special characters'),
   accountnumber: z.string().nonempty('Please enter your account number'),
-  payoutvalue: z.string().nonempty('Please enter an amount')
+  payoutvalue: z.number().min(0,'Please enter an amount')
 
 })
 
@@ -39,7 +39,7 @@ export const changepasswordadmin = z
 
 export const payin = z.object({
   username: z.string().max(20).nonempty('Please enter an username'),
-  amount: z.string().nonempty('Please enter an amount')
+  amount: z.number().min(0,'Please enter an amount')
 })
 
 

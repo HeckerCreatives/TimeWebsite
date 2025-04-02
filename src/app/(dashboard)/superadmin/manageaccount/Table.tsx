@@ -40,6 +40,8 @@ import Spinner from '@/components/common/Spinner'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { changepasswordadmin, ChangePasswordAdmin } from '@/validation/schema'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 
 type User = {
 createdAt: string
@@ -403,7 +405,7 @@ export default function UserTable() {
                         <form onSubmit={handleSubmit(changePassowrd)} className=' w-full flex flex-col gap-1 mt-2'>
                           <label htmlFor="" className=' text-xs text-zinc-300'>New password</label>
                           <div className=' w-full relative text-black'>
-                            <input type={shownew} placeholder='New password' className=' p-2 text-xs rounded-sm w-full' {...register('newpassword')} />
+                            <Input type={shownew} placeholder='New password' className=' text-black' {...register('newpassword')} />
                             { shownew === 'password' ? (
                             <p onClick={() => setShownew('text')} className=' top-1 right-1 absolute bg-zinc-200 text-black p-1 rounded-sm cursor-pointer '><EyeOff size={15}/></p>
                             ) : (
@@ -416,7 +418,7 @@ export default function UserTable() {
 
                           <label htmlFor="" className=' text-xs text-zinc-300 mt-2'>Confirm password</label>
                           <div className=' w-full relative text-black'>
-                            <input type={showconfirm} placeholder='Confirm password' className=' p-2 text-xs rounded-sm w-full' {...register('confirmpassword')}/>
+                            <Input type={showconfirm} placeholder='Confirm password' className=' text-black' {...register('confirmpassword')}/>
                             { showconfirm === 'password' ? (
                               <p onClick={() => setShowconfirm('text')} className=' top-1 right-1 absolute bg-zinc-200 text-black p-1 rounded-sm cursor-pointer '><EyeOff size={15}/></p>
                               ) : (
@@ -427,11 +429,11 @@ export default function UserTable() {
                           </div>
                           {errors.confirmpassword && <p className=' text-[.6em] text-red-400'>{errors.confirmpassword.message}</p>}
 
-                          <button className=' px-6 py-2 text-sm font-semibold rounded-sm bg-gradient mt-4 w-fit flex items-center justify-center gap-2'>
+                          <Button className=' clip-btn px-10 text-black w-fit mt-6'>
                             {loading2 === true && (
                                 <Spinner/>
                             )}
-                            Save Changes</button>
+                            Save Changes</Button>
                         </form>
 
                     </DialogContent>

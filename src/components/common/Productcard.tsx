@@ -39,7 +39,7 @@ export default function Productcard( prop: Props) {
     const router = useRouter()
     const [dialog, setDialog] = useState(false)
     const [isOpen, setIsopen] = useState('')
-    const [skip, setSkip] = useState(true)
+    const [skip, setSkip] = useState(false)
 
 
     const buyChrono = async () => {
@@ -127,7 +127,29 @@ export default function Productcard( prop: Props) {
                         <p className=' text-sm text-yellow-500'>Price</p>
                         <Slider onValueChange={(i) => setVal(i)} value={val} defaultValue={val} min={prop.min} max={prop.max} step={1} />
                         <label htmlFor="" className=' text-xs text-zinc-400 mt-4'>Or input amount here</label>
-                        <Input type="text" min={prop.min} max={prop.max} value={val[0]} onChange={(e) => setVal([Number(e.target.value)])}  placeholder='Input ammount here' className=' text-sm p-2 rounded-md text-black '/>
+                        <Input
+                        type="text"
+                        min={prop.min}
+                        max={prop.max}
+                        value={val[0].toLocaleString()} 
+                        onChange={(e) => {
+                            let inputValue = e.target.value.replace(/,/g, ""); // Remove commas
+                            let numValue = Number(inputValue);
+
+                            // Ensure valid number and limit within min-max range
+                            if (!isNaN(numValue)) {
+                            if (numValue < prop.min) {
+                                numValue = prop.min;
+                            } else if (numValue > prop.max) {
+                                numValue = prop.max;
+                            }
+                            setVal([numValue]);
+                            }
+                        }}
+                        placeholder="Input amount here"
+                        className="text-sm p-2 rounded-md text-black"
+                        />
+
                         <div className=' w-full flex items-center justify-between text-xs mt-2'>
                             <p className=' text-xs text-zinc-400'>min:₱ {(prop.min).toLocaleString()}</p>
                             <p className=' text-xs text-zinc-400'>max:₱ {(prop.max).toLocaleString()}</p>
@@ -164,9 +186,9 @@ export default function Productcard( prop: Props) {
                                     
                                 </DialogDescription>
                                 </DialogHeader>
-                                {skip === false && (
+                                {skip ?  (
                                     <>
-                                    <p className=' text-xs text-red-500'>Note, skipping the previous miner could lose 50% potential profit</p>
+                                    <p className=' text-xs text-red-500'>Note: Just a friendly reminder bypassing the previous chrono package could lead to a 50% reduction in your potential profit.</p>
 
                                     <div className=' w-full flex flex-col'>
                                         <p className=' text-sm text-yellow-500  '><span className=' line-through'>{prop.percentage}% Profit</span>  {(prop.percentage as any) / 2}% Profit</p>
@@ -174,15 +196,13 @@ export default function Productcard( prop: Props) {
                                         <p className=' text-sm text-white'>Selected Price: <span className=' text-yellow-500'>P {val[0].toLocaleString()}</span></p>
 
                                         <div className=' w-full flex items-end justify-end gap-4'>
-                                            <button onClick={buyChrono} className=' btn-gradient'>Continue</button>
+                                            <Button onClick={buyChrono} className=' text-black rounded-md'>Continue</Button>
 
                                         </div>
                                     </div>
                                     
                                     </>
-                                )}
-
-                                {skip === true && (
+                                ) : (
                                     <div className=' w-full flex flex-col'>
                                         <p className=' text-sm text-yellow-500'>{prop.percentage}% Profit</p>
                                         <p className=' text-sm text-yellow-500'>{prop.duration} days duration</p>
@@ -194,7 +214,8 @@ export default function Productcard( prop: Props) {
                                         </div>
                                     </div>
                                 )}
-                                
+
+                             
                             </DialogContent>
                             </Dialog>
 

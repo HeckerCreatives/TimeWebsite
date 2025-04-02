@@ -31,6 +31,7 @@ export default function Deposit() {
     setValue,
     reset,
     trigger,
+    watch,
     formState: { errors },
   } = useForm<Payin>({
     resolver: zodResolver(payin),
@@ -122,6 +123,22 @@ export default function Deposit() {
      }
    },[search])
 
+   const amount = watch('amount', 0);
+
+
+       const formatNumber = (value: number) => {
+           return value.toLocaleString();
+       };
+       
+       const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+           let rawValue = event.target.value.replace(/,/g, '');
+           let numericValue = Number(rawValue);
+       
+           if (!isNaN(numericValue)) {
+           setValue('amount', numericValue, { shouldValidate: true }); 
+           }
+       };
+
 
   
   return (
@@ -165,7 +182,15 @@ export default function Deposit() {
 
 
             <label htmlFor="" className=' text-xs text-zinc-300 mt-2'>Amount</label>
-            <Input type="number" placeholder=' Amount' className=' w-full p-2 rounded-sm text-black' {...register('amount')} />
+            <Input 
+             type="text"
+             placeholder=""
+             className=" text-black"
+             defaultValue={amount}
+             value={amount ? formatNumber(amount) : ''}
+             onChange={handleAmountChange}
+             onBlur={() => setValue('amount', amount || 0, { shouldValidate: true })}
+            />
               {errors.amount && <p className=' text-[.6em] text-red-400'>{errors.amount.message}</p>}
 
             <Button disabled={loading} className='clip-btn px-12 w-fit mt-6'>

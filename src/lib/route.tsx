@@ -17,7 +17,7 @@ export const superadmin = [
     {name:'Deposit', icon: <HandCoins width={15} height={15}/>, route:'/superadmin/deposit'},
     {name:'Withdrawal', icon: <WalletMinimal width={15} height={15}/>, route:'/superadmin/withdrawal'},
     {name:'Price Pool', icon: <AlignEndHorizontal width={15} height={15}/>, route:'/superadmin/prizepool'},
-    {name:'Chrono Package', icon: <Pickaxe width={15} height={15}/>, route:'/superadmin/miner'},
+    {name:'Chrono Package', icon: <Pickaxe width={15} height={15}/>, route:'/superadmin/chrono'},
     {name:'Master Key', icon: <TicketCheck width={15} height={15}/>, route:'/superadmin/masterkey'},
     {name:'Settings', icon: <Cog width={15} height={15}/>, route:'/superadmin/settings'},
 ]

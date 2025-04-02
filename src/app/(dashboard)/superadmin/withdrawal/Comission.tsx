@@ -31,6 +31,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { banks } from '@/app/data'
+import { Button } from '@/components/ui/button'
 
 
 
@@ -293,8 +294,8 @@ export default function Comissionlist() {
                 <TableCell className="font-medium text-center">{item.username}</TableCell>
                 <TableCell className="font-medium text-center">{item.accountname}</TableCell>
                 <TableCell className="font-medium text-center">{item.accountnumber}</TableCell>
-                <TableCell className="font-medium text-center">{item.netamount}</TableCell>
-                <TableCell className="font-medium text-center">{item.grossamount}</TableCell>
+                <TableCell className="font-medium text-center">{item.netamount.toLocaleString()}</TableCell>
+                <TableCell className="font-medium text-center">{item.grossamount.toLocaleString()}</TableCell>
                 <TableCell className="font-medium text-center">{item.paymentmethod}</TableCell>
                 <TableCell className="font-medium text-center">{item.phonenumber}</TableCell>
                 <TableCell className="font-medium text-center">{item.type}</TableCell>
@@ -307,14 +308,14 @@ export default function Comissionlist() {
                     </DialogTrigger>
                     <DialogContent>
                       <DialogHeader>
-                        <DialogTitle>Are you absolutely sure, you want to process this payout from <span className=' text-green-500'>{item.username}</span> requested at <span className=' text-green-500'>{new Date(item.createdAt).toDateString()}</span>?</DialogTitle>
+                        <DialogTitle>Are you absolutely sure, you want to process this payout from <span className=' text-yellow-500'>{item.username}</span> requested at <span className=' text-yellow-500'>{new Date(item.createdAt).toDateString()}</span>?</DialogTitle>
                         <DialogDescription>
                           This action cannot be undone. This will proccessed the requested payout
                         </DialogDescription>
                       </DialogHeader>
 
                       <Select value={status} onValueChange={setStatus}>
-                        <SelectTrigger className="w-[180px] bg-slate-800">
+                        <SelectTrigger className="w-[180px] bg-zinc-900">
                           <SelectValue placeholder="Select" />
                         </SelectTrigger>
                         <SelectContent>
@@ -323,11 +324,11 @@ export default function Comissionlist() {
                         </SelectContent>
                       </Select>
 
-                      <button onClick={() => proccessPayout(item.id,item.username)} className=' btn-gradient rounded-sm w-fit text-sm text-white font-semibold flex items-center justify-center gap-2'>
+                      <Button disabled={loading} onClick={() => proccessPayout(item.id,item.username)} className=' clip-btn px-10 w-fit mt-4'>
                         {loading2 === true && (
                           <Spinner/>
                         )}
-                        Continue</button>
+                        Continue</Button>
                     </DialogContent>
                   </Dialog>
 

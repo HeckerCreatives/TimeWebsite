@@ -116,10 +116,32 @@ export default function MinerCard( prop: Props) {
                     <Input value={duration} onChange={(e) => setDuration(e.target.valueAsNumber)}  placeholder='Duration' type="number" className=' text-black p-3 rounded-sm text-xs'/>
 
                     <label htmlFor="" className=' mt-2 text-xs'>Min</label>
-                    <Input value={min} onChange={(e) => setMin(e.target.valueAsNumber)}  placeholder='Duration' type="number" className=' text-black p-3 rounded-sm text-xs'/>
+                    <Input value={min.toLocaleString()}
+                     onChange={(e) => {
+                      const rawValue = e.target.value.replace(/,/g, '');
+                      const numValue = Number(rawValue);
+
+                      if (!isNaN(numValue)) {
+                        setMin(numValue);
+                      } else if (rawValue === '') {
+                        setMin(0);
+                      }
+                    }}
+                    placeholder='Min' type="text" className=' text-black p-3 rounded-sm text-xs'/>
 
                     <label htmlFor="" className=' mt-2 text-xs'>Max</label>
-                    <Input value={max} onChange={(e) => setMax(e.target.valueAsNumber)}  placeholder='Duration' type="number" className=' text-black p-3 rounded-sm text-xs'/>
+                    <Input value={max.toLocaleString()}   
+                     onChange={(e) => {
+                      const rawValue = e.target.value.replace(/,/g, '');
+                      const numValue = Number(rawValue);
+
+                      if (!isNaN(numValue)) {
+                        setMax(numValue);
+                      } else if (rawValue === '') {
+                        setMax(0);
+                      }
+                    }}
+                    placeholder='Max' type="text" className=' text-black p-3 rounded-sm text-xs'/>
 
                     <Button onClick={editchrono} disabled={loading} className='clip-btn px-12 w-fit mt-4'>
                     {loading === true && ( <div className='spinner'></div>)}

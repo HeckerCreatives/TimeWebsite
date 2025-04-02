@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation'
 import { min } from 'moment'
 import Pagination from '@/components/common/Pagination'
 import io from 'socket.io-client';
+import { Input } from '@/components/ui/input'
 
 
 interface pricepool {
@@ -342,6 +343,9 @@ const formatString = (data: string) => {
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
 }
+
+
+
     
   return (
     <div className=' w-full flex flex-col'>
@@ -350,13 +354,33 @@ const formatString = (data: string) => {
             <div className=' w-fit flex flex-wrap gap-4'>
                 <div className=' bg-zinc-800 w-[300px] p-6 text-sm flex flex-col gap-2'>
                     <p>Current Value</p>
-                    <input type="number" value={currentvalue} onChange={(e) => setCurrentValue(e.target.valueAsNumber)} className='text-sm p-2 w-full max-w-[300px]  rounded-md bg-zinc-600'/>
+                    <input type="text" value={currentvalue.toLocaleString()}  
+                    onChange={(e) => {
+                        const rawValue = e.target.value.replace(/,/g, '');
+                        const numValue = Number(rawValue);
 
+                        if (!isNaN(numValue)) {
+                          setCurrentValue(numValue);
+                        } else if (rawValue === '') {
+                          setCurrentValue(0);
+                        }
+                      }}
+                      className='text-sm p-2 w-full max-w-[300px]  rounded-md bg-zinc-600'/>
+                  
                 </div>
 
                 <div className=' bg-zinc-800 p-6 w-[300px] text-sm flex flex-col gap-2'>
                     <p>Price Pool</p>
-                    <input type="number" value={pricepool} onChange={(e) => setPricepool(e.target.valueAsNumber)} className='text-sm p-2 w-full max-w-[300px]  rounded-md bg-zinc-600'/>
+                    <input type="text" value={pricepool.toLocaleString()}  onChange={(e) => {
+                        const rawValue = e.target.value.replace(/,/g, '');
+                        const numValue = Number(rawValue);
+
+                        if (!isNaN(numValue)) {
+                          setPricepool(numValue);
+                        } else if (rawValue === '') {
+                          setPricepool(0);
+                        }
+                      }} className='text-sm p-2 w-full max-w-[300px]  rounded-md bg-zinc-600'/>
 
                 </div>
 

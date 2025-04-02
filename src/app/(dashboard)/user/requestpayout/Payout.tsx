@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios, { AxiosError } from 'axios'
 import toast from 'react-hot-toast'
@@ -36,12 +36,16 @@ export default function Payout() {
     const params = useSearchParams()
     const state = params.get('state')
 
+    
+
     const {
     register,
     handleSubmit,
     setValue,
     reset,
     trigger,
+    watch,
+    control,
     formState: { errors },
   } = useForm<RequestPayout>({
     resolver: zodResolver(payout),
@@ -159,7 +163,7 @@ export default function Payout() {
             
             } catch (error) {
             setLoading(false)
-
+            reset()
                 if (axios.isAxiosError(error)) {
                     const axiosError = error as AxiosError<{ message: string, data: string }>;
                     if (axiosError.response && axiosError.response.status === 401) {
@@ -210,6 +214,33 @@ export default function Payout() {
     },[state])
 
 
+    const amount = watch('payoutvalue', 0);
+
+
+
+     // Function to format number with commas
+    const formatNumber = (value: number) => {
+        return value.toLocaleString();
+    };
+    
+    // Handle input change
+    const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        let rawValue = event.target.value.replace(/,/g, '');
+        let numericValue = Number(rawValue);
+    
+        if (!isNaN(numericValue)) {
+        setValue('payoutvalue', numericValue, { shouldValidate: true }); 
+        }
+    };
+
+    const paymentMethod = watch("paymentmethod"); 
+
+        useEffect(() => {
+            if (!paymentMethod) {
+                setValue("paymentmethod", "");
+            }
+        }, [paymentMethod, setValue]);
+
 
 
   
@@ -256,18 +287,23 @@ export default function Payout() {
                     <div className=' w-full flex flex-col gap-2 md:p-4'>
 
                         <div className=' w-full flex flex-col gap-1 items-start h-[65px]'>
-                             <Select onValueChange={(value) => setValue('paymentmethod', value)} {...register('paymentmethod')}>
-                            <SelectTrigger className="w-full bg-zinc-100 text-black" >
-                                <SelectValue placeholder="Select Payment Method" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {banks.map((item, index) => (
-                                    <SelectItem key={item} value={item}>{item}</SelectItem>
-
-                                ))}
-                               
-                            </SelectContent>
-                            </Select>
+                        <Controller
+                                name="paymentmethod"
+                                control={control}
+                                defaultValue=""
+                                render={({ field }) => (
+                                    <Select onValueChange={field.onChange} value={field.value}>
+                                        <SelectTrigger className="w-full bg-zinc-100 text-black">
+                                            <SelectValue placeholder="Select Payment Method" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {banks.map((item) => (
+                                                <SelectItem key={item} value={item}>{item}</SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                )}
+                            />
                             <p className=' text-[.6rem] md:text-xs text-orange-300'>*Select payment method</p>
                             {errors.paymentmethod && <p className=' text-[.6em] text-red-400'>{errors.paymentmethod.message}</p>}
                         </div>
@@ -291,7 +327,15 @@ export default function Payout() {
                         </div>
 
                         <div className=' w-full flex flex-col gap-1 items-start h-[65px] mt-2'>
-                            <Input type="number" className=' p-3 text-xs rounded-sm text-black w-full' placeholder='Enter amount' {...register('payoutvalue')}/>
+                            <Input 
+                             type="text"
+                             placeholder=""
+                             className=" text-black"
+                             defaultValue={amount}
+                             value={amount ? formatNumber(amount) : ''}
+                             onChange={handleAmountChange}
+                             onBlur={() => setValue('payoutvalue', amount || 0, { shouldValidate: true })}
+                            />
                             <p className=' text-[.5rem] md:text-xs text-orange-300'></p>
                             {errors.payoutvalue && <p className=' text-[.6em] text-red-400'>{errors.payoutvalue.message}</p>}
                         </div>

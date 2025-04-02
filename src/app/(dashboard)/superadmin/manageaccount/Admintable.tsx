@@ -454,7 +454,7 @@ export default function AdminTable() {
                     </DialogTrigger>
                     <DialogContent>
                       <DialogHeader>
-                        <DialogTitle className=''>Change password for <span className=' text-green-500'>{item.username}</span></DialogTitle>
+                        <DialogTitle className=''>Change password for <span className=' text-yellow-500'>{item.username}</span></DialogTitle>
                         <DialogDescription>
                           
                         </DialogDescription>

@@ -235,9 +235,9 @@ export default function page() {
             </div>
 
             <div className=' flex flex-wrap items-center justify-center gap-6 mt-12'>
-                <Card icon={<Wallet size={30}/>} iconbg={'bg-amber-500'} title={'Credits'} amount={`${wallet?.userwallets.creditwallet.amount.toLocaleString()}`} subtitle={'Total credits'} text={''} loading={false}/>
+                <Card icon={<Wallet size={30}/>} iconbg={'bg-amber-500'} title={'Credit Time Wallet'} amount={`${wallet?.userwallets.creditwallet.amount.toLocaleString()}`} subtitle={'Total credits'} text={''} loading={false}/>
                 <Card icon={<Wallet size={30}/>} iconbg={'bg-amber-500'} title={'Total comission'} amount={`${wallet?.userwallets.commissionwallet.amount.toLocaleString()}`} subtitle={'Total comnissions'} text={''} loading={false}/>
-                <Card icon={<Wallet size={30}/>} iconbg={'bg-amber-500'} title={'Total miner earnings'} amount={`${wallet?.userwallets.chronocoinwallet.amount.toLocaleString()}`} subtitle={'Total earings from miner'} text={''} loading={false}/>
+                <Card icon={<Wallet size={30}/>} iconbg={'bg-amber-500'} title={'Total chrono package'} amount={`${wallet?.userwallets.chronocoinwallet.amount.toLocaleString()}`} subtitle={'Total earnings from chrono package'} text={''} loading={false}/>
 
             </div>
 

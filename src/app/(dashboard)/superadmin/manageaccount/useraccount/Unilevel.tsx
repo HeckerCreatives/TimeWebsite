@@ -123,8 +123,8 @@ export default function Unilevel() {
             </Select>
 
             <div className=' flex items-center gap-2'>
-                <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" placeholder='Search Username' className=' p-2 rounded-sm text-xs bg-slate-800 border-none' />
-                <button className=' p-2 bg-green-700 rounded-sm'><Search size={15}/></button>
+                <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" placeholder='Search Username' className=' p-2 rounded-sm text-xs bg-zinc-900 border-none' />
+                <button className=' p-2 bg-yellow-500 rounded-sm text-black'><Search size={15}/></button>
             </div>
 
 
