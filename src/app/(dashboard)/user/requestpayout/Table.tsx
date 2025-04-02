@@ -18,7 +18,8 @@ type History = {
 grossamount : number
 netammount : number
 status : string
-withdrawalfee: number
+withdrawalfee: number,
+type: string
 }
 
 export default function PayoutTable() {
@@ -59,7 +60,7 @@ export default function PayoutTable() {
         <div className=' h-[55px] flex items-center justify-between absolute top-0 w-[98%] bg-yellow-500 p-2 rounded-sm -translate-y-4'>
          
 
-            <p className=' text-sm text-black font-semibold'>Commission Payout History</p>
+            <p className=' text-sm text-black font-semibold'>Payout History</p>
 
 
         </div>
@@ -78,6 +79,7 @@ export default function PayoutTable() {
             <TableHead className=' text-center'>Gross Amount</TableHead>
             <TableHead className=' text-center'>Net Amount</TableHead>
             <TableHead className=' text-center'>Withdrawal Fee</TableHead>
+            <TableHead className=' text-center'>Payout Type</TableHead>
             <TableHead className=' text-center'>Status</TableHead>
             </TableRow>
         </TableHeader>
@@ -90,6 +92,7 @@ export default function PayoutTable() {
             <TableCell className=' text-center'>₱ {(item.grossamount || 0).toLocaleString()}</TableCell>
             <TableCell className=' text-center'>₱ {(item.netammount || 0).toLocaleString()}</TableCell>
             <TableCell className=" text-center">₱ {item.withdrawalfee.toLocaleString()}</TableCell>
+            <TableCell className=" text-center">{item.type == "chronocoinwallet" ? "Chrono Package" : "Commission"}</TableCell>
             <TableCell className=" text-center">{item.status}</TableCell>
             {/* <TableCell className={`text-center ${item.status.toLowerCase() === 'in review' && ' text-blue-500'}
             ${item.status === 'reject' && ' text-red-500'}
