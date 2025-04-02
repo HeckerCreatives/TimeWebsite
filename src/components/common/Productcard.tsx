@@ -29,7 +29,8 @@ type Props = {
     size: string
     b1t1: string
     type: string
-
+    canbuy: boolean
+    isunlock: boolean
 }
 
 export default function Productcard( prop: Props) {
@@ -40,6 +41,8 @@ export default function Productcard( prop: Props) {
     const [dialog, setDialog] = useState(false)
     const [isOpen, setIsopen] = useState('')
     const [skip, setSkip] = useState(false)
+    const [canBuy, setCanBuy] = useState(prop.canbuy)
+    const [unlock, setUnlock] = useState(prop.isunlock)
 
 
     const buyChrono = async () => {
@@ -64,9 +67,9 @@ export default function Productcard( prop: Props) {
                 error: `Error while purchasing ${prop.name}`,
             });
             if(response.data.message === 'success'){
-                setLoading(false)
-                router.push('?state=false')
-
+                // setLoading(false)
+                // router.push('?state=false')
+                window.location.reload()
             }
 
         } catch (error) {
@@ -169,15 +172,23 @@ export default function Productcard( prop: Props) {
 
                         <div className=' w-full flex md:flex-row flex-col gap-6 md:items-center justify-between mt-8'>
                             <p className=' text-xs font-semibold'>Selected price : <span className=' text-orange-300'>P{val.toLocaleString()}</span></p>
-                            
-
                             <Dialog open={dialog} onOpenChange={setDialog}>
                             <DialogTrigger>
-                                <button onClick={getState}  disabled={loading} className=' bg-yellow-500 py-1 clip-btn flex items-center gap-2 px-6 text-xs font-semibold text-black'>
-                                {loading === true && (
-                                <Spinner/>
-                                )}
-                                Purchase</button>
+                            {canBuy && unlock ? (
+                                <button onClick={getState} disabled={loading} className='bg-yellow-500 py-1 clip-btn flex items-center gap-2 px-6 text-xs font-semibold text-black'>
+                                    {loading && <Spinner />}
+                                    Purchase
+                                </button>
+                            ) : unlock ? (
+                                <button disabled className='bg-yellow-500 py-1 clip-btn flex items-center gap-2 px-6 text-xs font-semibold text-black'>
+                                    You still have an active Chrono package
+                                </button>
+                            ) : (
+                                <button disabled className='bg-yellow-500 py-1 clip-btn flex items-center gap-2 px-6 text-xs font-semibold text-black'>
+                                    Please buy the lower tier before unlocking this
+                                </button>
+                            )}
+                                
                             </DialogTrigger>
                             <DialogContent>
                                 <DialogHeader>
@@ -214,29 +225,12 @@ export default function Productcard( prop: Props) {
                                         </div>
                                     </div>
                                 )}
-
-                             
                             </DialogContent>
                             </Dialog>
-
-
                         </div>
-
-                       
-
-                        
-                    
-
                     </div>
-                    
-
                 </div>
             </div>
-
-          
-
-
-        
         </div>
     </div>
     
