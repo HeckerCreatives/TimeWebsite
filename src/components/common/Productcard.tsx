@@ -181,7 +181,7 @@ export default function Productcard( prop: Props) {
                             </DialogTrigger>
                             <DialogContent>
                                 <DialogHeader>
-                                <DialogTitle>Are you absolutely sure you want to purchase <span className=' text-yellow-500'>{prop.name}</span> ?</DialogTitle>
+                                <DialogTitle>Are you sure you’d like to proceed with ordering <span className=' text-yellow-500'>{prop.name}</span> ?</DialogTitle>
                                 <DialogDescription>
                                     
                                 </DialogDescription>
