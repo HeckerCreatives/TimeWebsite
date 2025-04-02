@@ -72,7 +72,7 @@ export const banks = [
   // "METROBANK",
   // "PNB",
   // "MAYA",
-  "CIMBBANK"
+  "CIMB BANK"
 ];
   
   
