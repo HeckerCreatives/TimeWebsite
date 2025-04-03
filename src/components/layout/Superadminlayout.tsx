@@ -172,6 +172,9 @@ export default function SuperAdminLayout({
           autoPlay
           loop
           muted
+          playsInline
+          disablePictureInPicture
+          controls={false} 
           
         />
 

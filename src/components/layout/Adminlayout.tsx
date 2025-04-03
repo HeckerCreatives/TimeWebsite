@@ -172,6 +172,9 @@ export default function AdminLayout({
           autoPlay
           loop
           muted
+          playsInline
+          disablePictureInPicture
+          controls={false} 
           
         />
 

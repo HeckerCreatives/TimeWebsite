@@ -200,3 +200,11 @@
 .shadow{
 box-shadow: 11px 13px 8px -3px rgba(48, 48, 48, 0.568);
 }
+
+
+video {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+

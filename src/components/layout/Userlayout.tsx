@@ -232,6 +232,9 @@ export default function UserLayout({
               autoPlay
               loop
               muted
+              playsInline
+              disablePictureInPicture
+              controls={false} 
               
             />
 
