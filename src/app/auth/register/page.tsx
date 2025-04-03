@@ -160,7 +160,7 @@ export default function page() {
             
           <Button disabled={loading} className=" clip-btn w-fit px-16 text-black mt-8 flex items-center justify-center gap-1">
           {loading && ( <div className='spinner'></div>)}
-            Log in</Button>
+            Register</Button>
 
           </form>
 
