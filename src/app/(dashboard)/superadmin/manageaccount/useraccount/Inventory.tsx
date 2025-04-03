@@ -13,9 +13,21 @@ import axios from 'axios'
 import { useSearchParams } from 'next/navigation'
 import Pagination from '@/components/common/Pagination'
 import Countdown from 'react-countdown'
+import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { handleApiError } from '@/lib/errorHandler'
+import toast from 'react-hot-toast'
+
 
 type Miner = {
-    minerid:string
+  chronoid:string
     type: string
     buyprice: number
     profit: number
@@ -28,17 +40,19 @@ type Miner = {
 
 export default function Inventory() {
     const params = useSearchParams()
-    const id = params.get('uid')
+    const playerid = params.get('uid')
     const [list, setList] = useState<Miner[]>([])
     const [loading, setLoading] = useState(false)
     const [totalpage, setTotalpage] = useState(0)
     const [currentpage, setCurrentpage] = useState(0)
+    const [refresh, setRefresh] = useState(false)
+    const [open, setOpen] = useState(false)
 
     useEffect(() => {
         setLoading(true)
         const getWallets = async () => {
             try {
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/inventory/getplayerinventoryforsuperadmin?playerid=${id}&page=${currentpage}&limit=10`,
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/inventory/getplayerinventoryforsuperadmin?playerid=${playerid}&page=${currentpage}&limit=10`,
                     {
                         withCredentials: true
                     }
@@ -58,7 +72,7 @@ export default function Inventory() {
 
         getWallets()
      
-     },[currentpage])
+     },[currentpage, refresh])
 
 
     const handlePageChange = (page: number) => {
@@ -71,6 +85,40 @@ export default function Inventory() {
           .map(word => word.charAt(0).toUpperCase() + word.slice(1))
           .join(' ');
   }
+
+
+  const grantMaturity = async ( id: string) => {
+    setLoading(true)
+    setRefresh(true)
+
+    try {
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_URL}/inventory/maxplayerinventorysuperadmin`,{
+          chronoid: id,
+          playerid: playerid
+        },
+            {
+                withCredentials: true
+            }
+        )
+
+        if(response.data.message === 'success'){
+          toast.success('Success')
+          setLoading(false)
+          setRefresh(false)
+          setOpen(false)
+
+        } 
+
+        
+        
+    } catch (error) {
+      setLoading(false)
+
+        handleApiError(error)
+        
+    }
+
+}
 
     
   return (
@@ -93,6 +141,7 @@ export default function Inventory() {
                 <TableHead className=' text-center'>Profit</TableHead>
                 <TableHead className=' text-center'>Remaining Time</TableHead>
                 <TableHead className=' text-center'>Type</TableHead>
+                <TableHead className=' text-center'>Action</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -115,6 +164,26 @@ export default function Inventory() {
                     />
                   </TableCell>
                   <TableCell className=' text-center'>{formatString(item.type)}</TableCell>
+                  <TableCell className=' text-center'>
+                  <Dialog open={open} onOpenChange={setOpen}>
+                  <DialogTrigger>
+                    <Button className=' text-black rounded-sm'>Grant</Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Are you absolutely sure?</DialogTitle>
+                      <DialogDescription>
+                        This action cannot be undone. This will grant chrono package maturity.
+                      </DialogDescription>
+                    </DialogHeader>
+
+                    <Button disabled={loading} onClick={() => grantMaturity(item.chronoid)} className='clip-btn px-12 w-fit mt-4'>
+                      {loading === true && ( <div className='spinner'></div>)}
+                    Continue</Button>
+                  </DialogContent>
+                </Dialog>
+
+                  </TableCell>
                 </TableRow>
               ))}
                 

@@ -283,7 +283,7 @@ export default function UserTable() {
   }
 
   const viewUseraccount = (id: string) => {
-    window.open(`/superadmin/manageaccount/useraccount?uid=${id}`, '_blank');
+    window.open(`/admin/manageaccount/useraccount?uid=${id}`, '_blank');
   }
 
   return (
