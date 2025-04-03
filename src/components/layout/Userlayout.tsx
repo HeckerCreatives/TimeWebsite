@@ -189,10 +189,10 @@ export default function UserLayout({
 
             <div className=' flex items-center gap-2'>
               {referralstatus && (
-                <button onClick={() => copyReferral()} className=' clip-btn hidden text-xs w-fit text-black bg-yellow-500 px-6 py-2 lg:flex items-center gap-1 font-bold'><Copy size={15}/>Copy referral</button>
+                <button onClick={() => copyReferral()} className=' clip-btn text-xs w-fit text-black bg-yellow-500 px-6 py-2 lg:flex items-center gap-1 font-bold'>Copy referral</button>
 
               )}
-
+              
 
               <DropdownMenu>
               <DropdownMenuTrigger className=' active:border-none focus:border-none'>
