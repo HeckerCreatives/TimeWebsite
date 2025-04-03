@@ -138,12 +138,11 @@ export default function Productcard( prop: Props) {
                         onChange={(e) => {
                             let inputValue = e.target.value.replace(/,/g, ""); // Remove commas
                             let numValue = Number(inputValue);
-
+                           
                             // Ensure valid number and limit within min-max range
+                            
                             if (!isNaN(numValue)) {
-                            if (numValue < prop.min) {
-                                numValue = prop.min;
-                            } else if (numValue > prop.max) {
+                            if (numValue > prop.max) {
                                 numValue = prop.max;
                             }
                             setVal([numValue]);
