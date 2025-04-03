@@ -103,7 +103,7 @@ export default function page() {
           </div>
 
           <h1 className=" text-2xl font-bold mt-4">Welcome</h1>
-          <p className=" italic text-sm text-yellow-400">Log in with your account</p>
+          <p className=" italic text-sm text-yellow-400">Register your account</p>
 
           <form onSubmit={handleSubmit(onSubmit)} className=" w-[80%] md:w-[60%] flex flex-col gap-1 items-center justify-center mt-4">
             <div className=" w-full flex flex-col gap-1">
