@@ -67,7 +67,7 @@ export default function Maintenancecard( prop: Props) {
       
 
         <div className=' flex flex-col gap-3'>
-            <p className=' text-sm font-semibold'>{titleCard(prop.type)}</p>
+            <p className=' text-sm font-semibold'>{titleCard(prop.type)} ({prop.value === '0' ? 'off' : 'on'})</p>
             <Switch checked={state} onCheckedChange={(checked) => updateMaintenance(checked)} />
         </div>
 

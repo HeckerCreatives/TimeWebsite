@@ -86,7 +86,6 @@ export default function Inventory() {
           .join(' ');
   }
 
-
   const grantMaturity = async ( id: string) => {
     setLoading(true)
     setRefresh(true)

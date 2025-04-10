@@ -63,7 +63,7 @@ export default function Product() {
   return (
     <div className=' w-full max-w-[1740px] grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] lg:grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-4'>
       {list.map((item, index) => (
-        <Productcard name={item.name} percentage={`${(item?.profit) * 100}`} duration={`${item?.duration}`} min={item?.min} max={item.max} img={productImage(item.name)} size={`${productImageSize(item.name)}`} b1t1={item?.isBuyonetakeone} type={item.type} canbuy={item.canbuy} isunlock={item.isunlock}/>
+        <Productcard key={index} name={item.name} percentage={`${(item?.profit) * 100}`} duration={`${item?.duration}`} min={item?.min} max={item.max} img={productImage(item.name)} size={`${productImageSize(item.name)}`} b1t1={item?.isBuyonetakeone} type={item.type} canbuy={item.canbuy} isunlock={item.isunlock}/>
       ))}
         {/* <Productcard name={'Rolex Ai Bot'} percentage={`${(quick?.profit || 0) * 100}`} duration={`${quick?.duration}`} min={quick?.min || 0} max={quick?.max || 0} img={'/A-Rolex.png'} size={'150'} b1t1={quick?.isBuyonetakeone || ''}/>
         <Productcard name={'Patek Philippe Ai Bot'} percentage={`${(swift?.profit || 0) * 100}`} duration={`${swift?.duration}`} min={swift?.min || 0} max={swift?.max || 0} img={'/B-Patek Philippe.png'} size={'220'} b1t1={swift?.isBuyonetakeone || ''}/>
