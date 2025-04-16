@@ -121,7 +121,7 @@ export default function Cards() {
         <Card icon={<Wallet size={30} className=' text-black'/>} iconbg={'bg-yellow-500'} title={'Chrono Package Wallet'} amount={`${wallets?.data.chronocoinwallet.toLocaleString()}`} subtitle={'Unclaimed chrono package earnings'} text={''} loading={false}/>
         <Card icon={<Wallet size={30} className=' text-black'/>} iconbg={'bg-yellow-500'} title={'Referral Total Commission'} amount={`${wallets?.data.directwallet.toLocaleString()}`} subtitle={'Total accumulated commission from direct refferal'} text={''} loading={false}/>
         <Card icon={<Wallet size={30} className=' text-black'/>} iconbg={'bg-yellow-500'} title={'Unilevel Total Commission'} amount={`${wallets?.data.unilevelwallet.toLocaleString()}`} subtitle={'Total accumulated commission from lvl 2 to lvl 10'} text={''} loading={false}/>
-        <Card icon={<Wallet size={30} className=' text-black'/>} iconbg={'bg-yellow-500'} title={'Commission Wallet'} amount={`${wallets?.data.commissionwallet.toLocaleString()}`} subtitle={'Withdrawable value from direct referral & unilevel'} text={''} loading={false}/>
+        <Card icon={<Wallet size={30} className=' text-black'/>} iconbg={'bg-yellow-500'} title={'Commission Wallet'} amount={`${((wallets?.data.directwallet || 0) + (wallets?.data.unilevelwallet || 0)).toLocaleString()}`} subtitle={'Withdrawable value from direct referral & unilevel'} text={''} loading={false}/>
         <Card icon={<Wallet size={30} className=' text-black'/>} iconbg={'bg-yellow-500'} title={'Total Revenue'} amount={`${totalearnings.toLocaleString()}`} subtitle={'The sum of referral commission, unilevel & chrono package total earnings'} text={''} loading={false}/>
     </div>
   )
