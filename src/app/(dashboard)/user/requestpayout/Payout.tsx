@@ -331,7 +331,7 @@ export default function Payout() {
                         <div className=' w-full flex flex-col gap-1 items-start h-[65px] mt-2'>
                             <Input 
                              type="text"
-                             placeholder=""
+                             placeholder="Amount"
                              className=" text-black"
                              defaultValue={amount}
                              value={amount ? formatNumber(amount) : ''}
