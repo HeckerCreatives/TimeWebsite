@@ -99,15 +99,18 @@ export default function ViewCard( prop: Props) {
 
                                 <div className=' w-full'>
                                     <label htmlFor="">Amount</label>
-                                    <Input type='text' className=' text-black mt-1' value={amount.toLocaleString()}
+                                    <Input
+                                      type="text"
+                                      className="text-black mt-1"
+                                      value={amount.toLocaleString()}
                                       onChange={(e) => {
                                         const rawValue = e.target.value.replace(/,/g, '');
                                         const numValue = Number(rawValue);
-                  
-                                        if (!isNaN(numValue)) {
-                                          setAmount(numValue);
-                                        } else if (rawValue === '') {
+
+                                        if (rawValue === '') {
                                           setAmount(0);
+                                        } else if (!isNaN(numValue) && numValue >= 0) {
+                                          setAmount(numValue);
                                         }
                                       }}
                                     />
