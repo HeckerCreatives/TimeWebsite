@@ -44,7 +44,7 @@ export default function Cards() {
 
 
     <Card icon={<Wallet size={30} />} iconbg={' bg-yellow-500'} title={'Total Request Commission'} amount={`${total?.totalrequestcommission.toLocaleString()}`} subtitle={'User Total Request Commission'} text={''} loading={loading}/>
-    <Card icon={<Wallet size={30} />} iconbg={' bg-yellow-500'} title={'Total Miner Request'} amount={`${total?.totalrequestminecoin.toLocaleString()}`} subtitle={'User Total Miner Request'} text={''} loading={loading}/>
+    <Card icon={<Wallet size={30} />} iconbg={' bg-yellow-500'} title={'Chrono Package'} amount={`${total?.totalrequestminecoin.toLocaleString()}`} subtitle={'User Total Miner Request'} text={''} loading={loading}/>
    
 
 </div>
