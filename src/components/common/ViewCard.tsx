@@ -42,9 +42,9 @@ export default function ViewCard( prop: Props) {
         setLoading(true)
     
         try {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_URL}/wallets/editplayerwalletforadmin`,{
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_URL}/wallets/edituserwalletforadmin`,{
                 playerid: id,
-              type: prop.type,
+                wallettype: prop.type,
               amount: amount
             },
                 {

@@ -36,6 +36,7 @@ fromusername: string
 type: string
 username: string
  minername: string
+
 }
 
 type TabData = {
@@ -51,7 +52,7 @@ type TabKeys = keyof TabData;
 
 export default function DashboardTable() {
 
-  const [tab, setTab] = useState('commissionwallet')
+  const [tab, setTab] = useState('creditwallet')
 
 
   const [list, setList] = useState<Credit[]>([])
@@ -64,9 +65,8 @@ export default function DashboardTable() {
 
   useEffect(() => {
     setLoading(true)
-    if(tab === 'creditwallet'){
       const getHistory = async () => {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/wallethistory/userwallethistory?type=creditwallet&page=${currentpage}&limit=10`,{
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/wallethistory/userwallethistory?type=${tab}&page=${currentpage}&limit=10`,{
         withCredentials: true
         })
       setList(res.data.data.history)
@@ -74,57 +74,10 @@ export default function DashboardTable() {
       setLoading(false)
       }
       getHistory()
-    }
     
   },[ currentpage, tab])
 
-  useEffect(() => {
-    setLoading(true)
-    if(tab === 'minecoinwallet'){
-      const getBuyHistory = async () => {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/wallethistory/userwallethistory?type=minecoinwallet&page=${currentpage}&limit=10`,{
-        withCredentials: true
-        })
-      setMine(res.data.data.history)
-      setTotalPage(res.data.data.pages)
-      setLoading(false)
-      }
-      getBuyHistory()
-    }
-    
-  },[ currentpage, tab])
-
-  useEffect(() => {
-    setLoading(true)
-    if(tab === 'commissionwallet'){
-       const getHistory = async () => {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/wallethistory/userwallethistory?type=commissionwallet&page=${currentpage}&limit=10`,{
-      withCredentials: true
-      })
-     setComission(res.data.data.history)
-     setTotalPage(res.data.data.pages)
-     setLoading(false)
-    }
-    getHistory()
-    }
-   
-  },[ currentpage, tab])
-
-  useEffect(() => {
-    setLoading(true)
-    if(tab === 'directcommissionwallet'){
-      const getHistory = async () => {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/wallethistory/userwallethistory?type=directcommissionwallet&page=${currentpage}&limit=10`,{
-      withCredentials: true
-      })
-     setDirectcomission(res.data.data.history)
-     setTotalPage(res.data.data.pages)
-     setLoading(false)
-    }
-    getHistory()
-    }
-    
-  },[ currentpage,tab])
+  console.log(list)
 
 
 
@@ -141,9 +94,10 @@ export default function DashboardTable() {
                 <SelectValue placeholder="Select" />
             </SelectTrigger>
             <SelectContent>
-                <SelectItem value="commissionwallet">Commission Wallet History</SelectItem>
-                <SelectItem value="directcommissionwallet">Direct Commission Wallet History</SelectItem>
-                <SelectItem value="minecoinwallet">Chrono Package Wallet History</SelectItem>
+               <SelectItem value="creditwallet">Load Balance History</SelectItem>
+               <SelectItem value="chronocoinwallet">Chrono Wallet Earning History</SelectItem>
+               <SelectItem value="commissionwallet">Commission History(Lvl 2-10)</SelectItem>
+               <SelectItem value="directwallet">Referral History(Lvl 1)</SelectItem>
                 {/* <SelectItem value="creditwallet">Credit Time Wallet History</SelectItem> */}
             </SelectContent>
             </Select>
@@ -151,124 +105,7 @@ export default function DashboardTable() {
 
         </div>
 
-        { tab === 'commissionwallet' && (
-          <>
-           <Table className=' mt-8'>
-            {comission.length === 0 && (
-              <TableCaption className=' text-xs'>No data</TableCaption>
-            )}
-             {loading === true && (
-              <TableCaption className=' '>
-                <Spinner/>
-              </TableCaption>
-            )}
-            <TableHeader className=' border-slate-700'>
-                <TableRow>
-                <TableHead className=' text-center'>Date</TableHead>
-                <TableHead className=' text-center'>Amount</TableHead>
-                <TableHead className=' text-center'>From</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-              {comission.map((item, index) => (
-                <TableRow key={index}>
-                  <TableCell className=' text-center'>{new Date(item.createdAt).toLocaleString()}</TableCell>
-                  <TableCell className=' text-center'>₱ {item.amount.toLocaleString()}</TableCell>
-                  <TableCell className=' text-center'>{item.fromusername}</TableCell>
-                </TableRow>
-              ))}
-                
-            </TableBody>
-            </Table>
-
-             {comission.length !== 0 && (
-            < Pagination currentPage={currentpage} total={totalpage} onPageChange={handlePageChange}/>
-
-            )}
-         
-          </>
-         
-        )}
-
-        { tab === 'directcommissionwallet' && (
-          <>
-           <Table className=' mt-8'>
-            {directcommission.length === 0 && (
-              <TableCaption className=' text-xs'>No data</TableCaption>
-            )}
-             {loading === true && (
-              <TableCaption className=' '>
-                <Spinner/>
-              </TableCaption>
-            )}
-            <TableHeader className=' border-slate-700'>
-            
-                <TableRow>
-                <TableHead className=' text-center'>Date</TableHead>
-                <TableHead className=' text-center'>Amount</TableHead>
-                <TableHead className=' text-center'>From</TableHead>
-                </TableRow>
-            
-            </TableHeader>
-            <TableBody>
-                {directcommission.map((item, index) => (
-                <TableRow key={index}>
-                  <TableCell className=' text-center'>{new Date(item.createdAt).toLocaleString()}</TableCell>
-                  <TableCell className=' text-center'>₱ {item.amount.toLocaleString()}</TableCell>
-                  <TableCell className=' text-center'>{item.fromusername}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-            </Table>
-             {directcommission.length !== 0 && (
-            < Pagination currentPage={currentpage} total={totalpage} onPageChange={handlePageChange}/>
-
-            )}
-          </>
-         
-        )}
-
-        { tab === 'minecoinwallet' && (
-          <>
-           <Table className=' mt-8'>
-            {mine.length === 0 && (
-              <TableCaption className=' text-xs'>No data</TableCaption>
-            )}
-             {loading === true && (
-              <TableCaption className=' '>
-                <Spinner/>
-              </TableCaption>
-            )}
-            <TableHeader className=' border-slate-700'>
-                <TableRow>
-                <TableHead className=' text-center'>Date</TableHead>
-                <TableHead className=' text-center'>Amount</TableHead>
-                <TableHead className=' text-center'>Miner Name</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-               {mine.map((item, index) => (
-                <TableRow key={index}>
-                  <TableCell className=' text-center'>{new Date(item.createdAt).toLocaleString()}</TableCell>
-                  <TableCell className=' text-center'>₱ {item.amount.toLocaleString()}</TableCell>
-                  <TableCell className=' text-center'>{item.minername}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-            </Table>
-
-             {mine.length !== 0 && (
-            < Pagination currentPage={currentpage} total={totalpage} onPageChange={handlePageChange}/>
-
-            )}
-
-          </>
-         
-        )}
-
-        { tab === 'creditwallet' && (
-          <>
-           <Table className=' mt-8'>
+        <Table className=' mt-8'>
             {list.length === 0 && (
               <TableCaption className=' text-xs'>No data</TableCaption>
             )}
@@ -285,25 +122,23 @@ export default function DashboardTable() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {list.map((item, index) => (
+              {list.map((item, index) => (
                 <TableRow key={index}>
                   <TableCell className=' text-center'>{new Date(item.createdAt).toLocaleString()}</TableCell>
                   <TableCell className=' text-center'>₱ {item.amount.toLocaleString()}</TableCell>
                   <TableCell className=' text-center'>{item.fromusername}</TableCell>
                 </TableRow>
               ))}
+                
             </TableBody>
             </Table>
-           
 
-            {list.length !== 0 && (
-            <Pagination currentPage={currentpage} total={totalpage} onPageChange={handlePageChange}/>
+             {list.length !== 0 && (
+            < Pagination currentPage={currentpage} total={totalpage} onPageChange={handlePageChange}/>
 
             )}
-          </>
-         
-        )}
 
+     
 
         
 

@@ -23,12 +23,14 @@ import {
 import Spinner from '@/components/common/Spinner'
 import ViewCard from '@/components/common/ViewCard'
 import { handleApiError } from '@/lib/errorHandler'
+import WalletHistory from './WalletHistory'
 
 
 type User = {
     banstatus: string
     referral: string
     username: string
+    referralid: string
 
 }
 
@@ -249,7 +251,11 @@ export default function page() {
                 </div>
                 <div className=' z-20 flex flex-col gap-4'>
                     <h2 className=' text-2xl font-semibold'>{data?.username}</h2>
-                    <p className=' text-sm text-yellow-500'>Referral: {data?.referral}</p>
+                    {data?.referralid !== '' ? (
+                        <a target='_blank' href={`/superadmin/manageaccount/useraccount?uid=${data?.referralid}`} className=' text-xs underline cursor-pointer'>Referral: {data?.referral}</a>
+                        ) : (
+                        <p className=' text-xs'>Referral: {data?.referral}</p>
+                        )}
                 </div>
 
                 
@@ -300,17 +306,23 @@ export default function page() {
 
             </div>
 
-            <Tabs defaultValue="tab1" className="w-full mt-12  ">
+            <Tabs defaultValue="tab5" className="w-full mt-12  ">
             <TabsList className=' w-full pl-16 md:pl-0 md:w-fit bg-zinc-800 flex md:text-sm text-[5rem] overflow-x-auto'>
-                <TabsTrigger value="tab1">Cashin history</TabsTrigger>
-                <TabsTrigger value="tab2">Cashout history</TabsTrigger>
+                {/* <TabsTrigger value="tab1">Cashin History</TabsTrigger>
+                <TabsTrigger value="tab2">Cashout History</TabsTrigger>
                 <TabsTrigger value="tab3">Unilevel</TabsTrigger>
-                <TabsTrigger value="tab4">Chrono Package Inventory</TabsTrigger>
+                <TabsTrigger value="tab4">Chrono Package Inventory</TabsTrigger> */}
+                <TabsTrigger value="tab5">Invites</TabsTrigger>
+                <TabsTrigger value="tab6">Inventory</TabsTrigger>
+                <TabsTrigger value="tab7">Wallet History</TabsTrigger>
             </TabsList>
             <TabsContent value="tab1"><Cashin/></TabsContent>
             <TabsContent value="tab2"><Cashout/></TabsContent>
             <TabsContent value="tab3"><Unilevel/></TabsContent>
             <TabsContent value="tab4"><Inventory/></TabsContent>
+            <TabsContent value="tab5"><Unilevel/></TabsContent>
+            <TabsContent value="tab6"><Inventory/></TabsContent>
+            <TabsContent value="tab7"><WalletHistory/></TabsContent>
             </Tabs>
 
 
