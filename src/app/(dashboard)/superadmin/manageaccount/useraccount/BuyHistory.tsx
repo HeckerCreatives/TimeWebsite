@@ -31,7 +31,7 @@ import { Trash2 } from 'lucide-react'
   
 
 interface List {
-    bankname: string,
+    chronotype: string,
     type: string,
     amount: number,
     createdAt: string
