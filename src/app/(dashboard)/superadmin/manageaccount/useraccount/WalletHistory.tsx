@@ -217,7 +217,7 @@ export default function WalletHistory() {
         setLoading(true)
     
         try {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_URL}/wallet/sendplayerwalletforadmin`,{
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_URL}/wallets/sendplayerwalletforadmin`,{
                 playerid: id,
               amount: amount,
               wallettype: type
