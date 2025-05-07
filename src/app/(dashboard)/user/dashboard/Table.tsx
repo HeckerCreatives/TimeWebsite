@@ -97,7 +97,7 @@ export default function DashboardTable() {
                {/* <SelectItem value="creditwallet">Credit Time Wallet History</SelectItem> */}
                <SelectItem value="chronocoinwallet">Chrono Wallet Earning History</SelectItem>
                <SelectItem value="commissionwallet">Commission History(Lvl 2-10)</SelectItem>
-               <SelectItem value="directwallet">Referral History(Lvl 1)</SelectItem>
+               <SelectItem value="directcommissionwallet">Referral History(Lvl 1)</SelectItem>
                 {/* <SelectItem value="creditwallet">Credit Time Wallet History</SelectItem> */}
             </SelectContent>
             </Select>

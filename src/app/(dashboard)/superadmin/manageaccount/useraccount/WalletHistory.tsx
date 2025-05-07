@@ -27,7 +27,7 @@ import {
     DialogTitle,
     DialogTrigger,
   } from "@/components/ui/dialog"
-import { Pen, Trash2 } from 'lucide-react'
+import { Pen, Plus, Trash2 } from 'lucide-react'
 import BuyHistory from './BuyHistory'
 import PayoutHistory from './payoutHistory'
 import { handleApiError } from '@/lib/errorHandler'
@@ -57,6 +57,9 @@ export default function WalletHistory() {
     const id = params.get('uid')
     const [type, setType] = useState('creditwallet')
     const [amount, setAmount] = useState(0)
+    const [loading, setLoading] = useState(false)
+    const [username, setUsername] = useState('')
+
 
  
 
@@ -150,7 +153,7 @@ export default function WalletHistory() {
     const editHistory = async (data: string) => {
     
         try {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/wallethistory/editplayerwallethistoryforadmin`,{
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_URL}/wallethistory/editplayerwallethistoryforadmin`,{
                 historyid: data,
               amount: amount
             },
@@ -176,6 +179,40 @@ export default function WalletHistory() {
     
     }
 
+    const addHistory = async () => {
+        setLoading(true)
+    
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_URL}/wallethistory/createplayerwallethistoryforadmin`,{
+                playerid: id,
+              amount: amount,
+              type: type,
+              user: username
+            },
+                {
+                    withCredentials: true
+                }
+            )
+    
+            if(response.data.message === 'success'){
+              toast.success('Success')
+              setLoading(false)
+              window.location.reload()
+           
+    
+            } 
+    
+            
+            
+        } catch (error) {
+          setLoading(false)
+    
+            handleApiError(error)
+            
+        }
+    
+    }
+
 
   return (
      <div className=' w-full flex flex-col gap-4 h-auto bg-cream rounded-xl shadow-sm mt-4 p-6'>
@@ -187,14 +224,62 @@ export default function WalletHistory() {
             <SelectItem value="creditwallet">Credit Time Wallet History</SelectItem>
             <SelectItem value="chronocoinwallet">Chrono Wallet Earning History</SelectItem>
             <SelectItem value="commissionwallet">Commission History(Lvl 2-10)</SelectItem>
-            <SelectItem value="directwallet">Referral History(Lvl 1)</SelectItem>
+            <SelectItem value="directcommissionwallet">Referral History(Lvl 1)</SelectItem>
             <SelectItem value="purchasehistory">Inventory History</SelectItem>
             <SelectItem value="payouthistory">Payout History</SelectItem>
             {/* <SelectItem value="unilevelbalance">Unilevel Commission Wallet History</SelectItem> */}
         </SelectContent>
         </Select>
 
-        {(type === 'creditwallet' || type === 'chronocoinwallet' || type === 'commissionwallet' || type === 'directwallet') && (
+        {(type === 'commissionwallet' || type === 'directcommissionwallet') && (
+                         <Dialog>
+                         <DialogTrigger className=' text-[.7rem] bg-yellow-500 text-black py-1 px-3 rounded-md flex items-center gap-1 w-fit'><Plus size={15}/>Add</DialogTrigger>
+                                 <DialogContent>
+                                     <DialogHeader>
+                                     <DialogTitle>Add History</DialogTitle>
+                                     <DialogDescription>
+                                        
+                                     </DialogDescription>
+                                     </DialogHeader>
+     
+                                     <div className=' w-full flex flex-col gap-1'>
+
+                                    <label htmlFor="">Username</label>
+                                    <Input
+                                        type="text"
+                                        className="text-black mt-1"
+                                        value={username}
+                                        onChange={(e) => setUsername(e.target.value)}
+                                    />
+
+
+                                    <label htmlFor="" className='mt-2'>Amount</label>
+                                    <Input
+                                        type="text"
+                                        className="text-black mt-1"
+                                        value={amount.toLocaleString()}
+                                        onChange={(e) => {
+                                        const rawValue = e.target.value.replace(/,/g, '');
+                                        const numValue = Number(rawValue);
+
+                                        if (rawValue === '') {
+                                            setAmount(0);
+                                        } else if (!isNaN(numValue) && numValue >= 0) {
+                                            setAmount(numValue);
+                                        }
+                                        }}
+                                    />
+
+                                    <Button disabled={loading} onClick={() => addHistory()} className='clip-btn px-12 w-fit mt-4'>
+                                    {loading && ( <div className='spinner'></div>)}
+                                        Save</Button>
+
+                                    </div>
+                                 </DialogContent>
+                                 </Dialog>
+                    )}
+
+        {(type === 'creditwallet' || type === 'chronocoinwallet' || type === 'commissionwallet' || type === 'directcommissionwallet') && (
                     <>
                <p className=' text-sm font-medium'>{history(type)}</p>
             <Table>
@@ -237,7 +322,7 @@ export default function WalletHistory() {
                       </DialogContent>
                     </Dialog>
 
-                    {/* <Dialog>
+                    <Dialog>
                     <DialogTrigger onClick={() => setAmount(item.amount)} className=' text-[.7rem] bg-blue-500 text-white p-1 rounded-md flex items-center gap-1'><Pen size={15}/></DialogTrigger>
                             <DialogContent>
                                 <DialogHeader>
@@ -271,7 +356,7 @@ export default function WalletHistory() {
 
                                 </div>
                             </DialogContent>
-                            </Dialog> */}
+                            </Dialog>
                     </TableCell>
                    
                    

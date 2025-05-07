@@ -34,7 +34,11 @@ type Unclaimed = {
 
     }
 }
-
+interface Statistics {
+  time:number,
+  referral:number,
+  unilevel:number
+}
 export default function Cards() {
 
 
@@ -46,6 +50,28 @@ export default function Cards() {
     const [loading, setLoading] = useState(false)
     const [unclaimed, setUnclaimed] = useState(0)
     const unclaimedValue = unclaimed.toLocaleString()
+    const [stats, setStats] = useState<Statistics>()
+
+
+    useEffect(() => {
+      const getWallets = async () => {
+        try {
+          const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/wallethistory/getwalletstatistics`,{
+          withCredentials:true
+          })
+          
+          setStats(response.data.data)
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            const axiosError = error as AxiosError<{ message: string, data: string }>;
+            if (axiosError.response && axiosError.response.status === 401) {
+             
+              }    
+            } 
+        }
+      }
+      getWallets()
+  },[])
   
 
   useEffect(() => {
@@ -116,13 +142,13 @@ export default function Cards() {
     <div className=' max-w-[1440px] h-auto w-full grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))]  gap-8 mt-6'>
 
         <Card icon={<Wallet size={30} className=' text-black'/>} iconbg={'bg-yellow-500'} title={'Credit Time Wallet'} amount={`${wallets?.data.creditwallet.toLocaleString()}`} subtitle={'Use to purchase chrono package'} text={''} loading={false}/>
-        <Card icon={<Wallet size={30} className=' text-black'/>} iconbg={'bg-yellow-500'} title={'Total Redeemables'} amount={`${withdrawables.toLocaleString()}`} subtitle={'The sum of commission wallet & chrono package wallet'} text={''} loading={false}/>
+        <Card icon={<Wallet size={30} className=' text-black'/>} iconbg={'bg-yellow-500'} title={'Total Redeemables'} amount={`${((wallets?.data.commissionwallet || 0) + (wallets?.data.chronocoinwallet || 0)).toLocaleString()}`} subtitle={'The sum of commission wallet & chrono package wallet'} text={''} loading={false}/>
         <Card icon={<Wallet size={30} className=' text-black'/>} iconbg={'bg-yellow-500'} title={'Chrono Package Total Earning'} amount={`${earnings?.data.mining.toLocaleString()}`} subtitle={'Total income from chrono package'} text={''} loading={false}/>
         <Card icon={<Wallet size={30} className=' text-black'/>} iconbg={'bg-yellow-500'} title={'Chrono Package Wallet'} amount={`${wallets?.data.chronocoinwallet.toLocaleString()}`} subtitle={'Unclaimed chrono package earnings'} text={''} loading={false}/>
-        <Card icon={<Wallet size={30} className=' text-black'/>} iconbg={'bg-yellow-500'} title={'Referral Total Commission'} amount={`${wallets?.data.directwallet.toLocaleString()}`} subtitle={'Total accumulated commission from direct refferal'} text={''} loading={false}/>
-        <Card icon={<Wallet size={30} className=' text-black'/>} iconbg={'bg-yellow-500'} title={'Unilevel Total Commission'} amount={`${wallets?.data.unilevelwallet.toLocaleString()}`} subtitle={'Total accumulated commission from lvl 2 to lvl 10'} text={''} loading={false}/>
-        <Card icon={<Wallet size={30} className=' text-black'/>} iconbg={'bg-yellow-500'} title={'Commission Wallet'} amount={`${((wallets?.data.directwallet || 0) + (wallets?.data.unilevelwallet || 0)).toLocaleString()}`} subtitle={'Withdrawable value from direct referral & unilevel'} text={''} loading={false}/>
-        <Card icon={<Wallet size={30} className=' text-black'/>} iconbg={'bg-yellow-500'} title={'Total Revenue'} amount={`${totalearnings.toLocaleString()}`} subtitle={'The sum of referral commission, unilevel & chrono package total earnings'} text={''} loading={false}/>
+        <Card icon={<Wallet size={30} className=' text-black'/>} iconbg={'bg-yellow-500'} title={'Referral Total Earnings'} amount={`${stats?.referral.toLocaleString()}`} subtitle={'Total accumulated commission from direct refferal'} text={''} loading={false}/>
+        <Card icon={<Wallet size={30} className=' text-black'/>} iconbg={'bg-yellow-500'} title={'Unilevel Total Earnings'} amount={`${stats?.unilevel.toLocaleString()}`} subtitle={'Total accumulated commission from lvl 2 to lvl 10'} text={''} loading={false}/>
+        <Card icon={<Wallet size={30} className=' text-black'/>} iconbg={'bg-yellow-500'} title={'Commission Wallet'} amount={`${wallets?.data.commissionwallet.toLocaleString()}`} subtitle={'Withdrawable value from direct referral & unilevel'} text={''} loading={false}/>
+        <Card icon={<Wallet size={30} className=' text-black'/>} iconbg={'bg-yellow-500'} title={'Total Earnings'} amount={`${totalearnings.toLocaleString()}`} subtitle={'The sum of referral commission, unilevel & chrono package total earnings'} text={''} loading={false}/>
     </div>
   )
 }
