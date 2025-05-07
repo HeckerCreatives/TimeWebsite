@@ -266,7 +266,7 @@ export default function WalletHistory() {
 
         {(type === 'creditwallet' ) && (
                          <Dialog>
-                         <DialogTrigger className=' text-[.7rem] bg-emerald-500 text-white py-1 px-3 rounded-md flex items-center gap-1 w-fit'><Send size={15}/>Send</DialogTrigger>
+                         <DialogTrigger className=' text-[.7rem] bg-yellow-500 text-white py-1 px-3 rounded-md flex items-center gap-1 w-fit'><Send size={15}/>Send</DialogTrigger>
                                  <DialogContent>
                                      <DialogHeader>
                                      <DialogTitle>Send Amount</DialogTitle>
