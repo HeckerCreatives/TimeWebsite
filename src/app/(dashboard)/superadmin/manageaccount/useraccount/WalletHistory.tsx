@@ -27,7 +27,7 @@ import {
     DialogTitle,
     DialogTrigger,
   } from "@/components/ui/dialog"
-import { Pen, Plus, Trash2 } from 'lucide-react'
+import { Pen, Plus, Send, Trash2 } from 'lucide-react'
 import BuyHistory from './BuyHistory'
 import PayoutHistory from './payoutHistory'
 import { handleApiError } from '@/lib/errorHandler'
@@ -213,6 +213,39 @@ export default function WalletHistory() {
     
     }
 
+    const sendHistory = async () => {
+        setLoading(true)
+    
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_URL}/wallet/sendplayerwalletforadmin`,{
+                playerid: id,
+              amount: amount,
+              wallettype: type
+            },
+                {
+                    withCredentials: true
+                }
+            )
+    
+            if(response.data.message === 'success'){
+              toast.success('Success')
+              setLoading(false)
+              window.location.reload()
+           
+    
+            } 
+    
+            
+            
+        } catch (error) {
+          setLoading(false)
+    
+            handleApiError(error)
+            
+        }
+    
+    }
+
 
   return (
      <div className=' w-full flex flex-col gap-4 h-auto bg-cream rounded-xl shadow-sm mt-4 p-6'>
@@ -230,6 +263,44 @@ export default function WalletHistory() {
             {/* <SelectItem value="unilevelbalance">Unilevel Commission Wallet History</SelectItem> */}
         </SelectContent>
         </Select>
+
+        {(type === 'creditwallet' ) && (
+                         <Dialog>
+                         <DialogTrigger className=' text-[.7rem] bg-emerald-500 text-white py-1 px-3 rounded-md flex items-center gap-1 w-fit'><Send size={15}/>Send</DialogTrigger>
+                                 <DialogContent>
+                                     <DialogHeader>
+                                     <DialogTitle>Send Amount</DialogTitle>
+                                     <DialogDescription>
+                                        
+                                     </DialogDescription>
+                                     </DialogHeader>
+     
+                                     <div className=' w-full flex flex-col gap-1'>
+                                         <label htmlFor="" className='mt-2'>Amount</label>
+                                         <Input
+                                           type="text"
+                                           className="text-black mt-1"
+                                           value={amount.toLocaleString()}
+                                           onChange={(e) => {
+                                             const rawValue = e.target.value.replace(/,/g, '');
+                                             const numValue = Number(rawValue);
+     
+                                             if (rawValue === '') {
+                                               setAmount(0);
+                                             } else if (!isNaN(numValue) && numValue >= 0) {
+                                               setAmount(numValue);
+                                             }
+                                           }}
+                                         />
+     
+                                         <Button disabled={loading} onClick={() => sendHistory()} className='clip-btn px-12 w-fit mt-4'>
+                                         {loading && ( <div className='spinner'></div>)}
+                                             Save</Button>
+     
+                                     </div>
+                                 </DialogContent>
+                                 </Dialog>
+                    )}
 
         {(type === 'commissionwallet' || type === 'directcommissionwallet') && (
                          <Dialog>
@@ -277,7 +348,7 @@ export default function WalletHistory() {
                                     </div>
                                  </DialogContent>
                                  </Dialog>
-                    )}
+        )}
 
         {(type === 'creditwallet' || type === 'chronocoinwallet' || type === 'commissionwallet' || type === 'directcommissionwallet') && (
                     <>
