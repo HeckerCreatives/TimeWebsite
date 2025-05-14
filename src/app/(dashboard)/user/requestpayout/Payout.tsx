@@ -268,7 +268,7 @@ export default function Payout() {
                 {type === 'commissionwallet' ? (
                     <>
                     <p className=' text-sm'>Commission Wallet Balance</p>
-                    <p className=' text-2xl font-semibold text-yellow-500'>₱{((wallet?.unilevelwallet || 0) + (wallet?.directwallet || 0)).toLocaleString()}</p>
+                    <p className=' text-2xl font-semibold text-yellow-500'>₱{(wallet?.commissionwallet || 0).toLocaleString()}</p>
                     </>
 
                 ): (
