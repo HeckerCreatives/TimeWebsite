@@ -160,9 +160,9 @@ export default function Productcard( prop: Props) {
 
                         <div className=' h-auto flex flex-col mt-6 gap-2'>
                         {prop.b1t1 === '1'? (
-                        <p className=' text-[.8rem]  w-fit rounded-full'>Promo: <span className=' text-yellow-500'>Double Time</span></p>
+                        <p className=' text-[.8rem]  w-fit rounded-full'>Status: <span className=' text-yellow-500'>Double Time</span></p>
                         ) : (
-                        <p className=' text-[.8rem] w-fit rounded-full'>Promo: <span className=' text-yellow-500'>Regular</span></p>
+                        <p className=' text-[.8rem] w-fit rounded-full'>Status: <span className=' text-yellow-500'>Regular</span></p>
 
                         )}
 
